@@ -1,0 +1,110 @@
+<html>
+  <head>
+    <title>CSCI 3308 (Principals of Programming Languages) - Lab 2</title>
+    <meta content="">
+    <style></style>
+    <h1>CSCI 3308 - Principals of Programming Languages</h1>
+    <h2>Lab 2</h2>
+<div class="no-overflow"><p class="problem-header">There are 4 parts to this lab, some parts have 2 sections, please ensure &nbsp;that you complete all parts and sections.&nbsp;</p>
+<h1 class="problem-header" style="text-align: center;"><strong>This lab is due Wednesday 9/11 at 11:55pm</strong></h1>
+<p class="problem-header" style="text-align: center;"><span style="color: #ff0000;"><strong>PLEASE PUT ALL OF THE EXERCISES INTO 1 RUBY FILE AND SUBMIT IT TO MOODLE<br></strong></span></p>
+<h2 class="problem-header">What to Turn in:</h2>
+<ol>
+<li>You will turn in your Ruby file to Moodle.</li>
+<li>We will conduct interview grading for this assignment next week, meaning you will schedule a time to demonstrate your running ruby programs to a TA.</li>
+</ol>
+<h1><em>Part 1 - Hello World</em></h1>
+<p>Traditionally, when learning a new computer language, the first task one undertakes is writing a Hello World application. In this part of the lab a Hello World program will be given to you:</p>
+<p><span style="font-family: 'courier new', courier, monospace;"># Part1: Hello World</span><br><span style="font-family: 'courier new', courier, monospace;">class HelloWorldClass</span><br><span style="font-family: 'courier new', courier, monospace;">&nbsp; &nbsp; def initialize(name)</span><br><span style="font-family: 'courier new', courier, monospace;">&nbsp; &nbsp; &nbsp; &nbsp;@name = name.capitalize</span><br><span style="font-family: 'courier new', courier, monospace;">&nbsp; &nbsp; end</span><br><span style="font-family: 'courier new', courier, monospace;">&nbsp; &nbsp; def sayHi</span><br><span style="font-family: 'courier new', courier, monospace;"> &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;puts "Hello #{@name}!"</span><br><span style="font-family: 'courier new', courier, monospace;">&nbsp; &nbsp; end</span><br><span style="font-family: 'courier new', courier, monospace;">end</span><br><span style="font-family: 'courier new', courier, monospace;">hello = HelloWorldClass.new("<em>{type your name here}</em>")</span><br><span style="font-family: 'courier new', courier, monospace;">hello.sayHi</span></p>
+<p>Type the above program into a Ruby file named <strong>Lab2.rb</strong>. This is the file you will be storing the rest of the programs you will write in Parts 2-4. This file will be stored in github and you are to provide the link to the public repository containing the file.</p>
+<p>Dissecting the above code, please note the following: a class named <em>HelloWorldClass</em> has been created, <em>initialize</em> is a class constructor which takes a parameter named <em>name</em>, all comments begin with a '#' character, and <em>puts</em> writes text to the screen.</p>
+<p>For more information on Ruby this website is an excellent resource:&nbsp;<a href="https://www.ruby-lang.org/en/documentation/" class="_blanktarget">https://www.ruby-lang.org/en/documentation/</a>&nbsp;</p>
+<h1><b><i>Part 2 - Strings</i></b></h1>
+<p><b><i>a) — Palindromes</i></b>: Write a method&nbsp;<code>palindrome?(string)</code>&nbsp;that determines whether a given&nbsp;<code>string </code>(word or phrase) is a palindrome, that is, it reads the same backwards as forwards, ignoring case, punctuation, and nonword characters. (A "nonword character" is defined for our purposes as "a character that Ruby regexps would treat as a nonword character".)</p>
+<p>The structure of your code should look as follows:</p>
+<pre>def palindrome?(string)
+    # your code here
+end</pre>
+<p>Your solution shouldn't use loops or iteration of any kind. Instead, you will find regular-expression syntax very useful; it's reviewed briefly in the book, and the website&nbsp;<a href="http://www.rubular.com/">rubular.com</a>&nbsp;lets you try out Ruby regular expressions "live". Some methods that you might find useful (which you'll have to look up in Ruby documentation,&nbsp;<a href="http://ruby-doc.org/">ruby-doc.org</a>) include:&nbsp;<code>String#downcase</code>, &nbsp;<code>String#gsub</code>, &nbsp;<code>String#reverse</code>.</p>
+<p>Example test cases:</p>
+<pre>palindrome?("A man, a plan, a canal -- Panama")  # =&gt; true
+palindrome?("Madam, I'm Adam!")                  # =&gt; true
+palindrome?("Abracadabra")                       # =&gt; false (nil is also ok)</pre>
+<p><b><i>b — Word Count</i></b>: Define a function&nbsp;<code>count_words(string)</code>&nbsp;that, given an input string, return a hash whose keys are words in the string and whose values are the number of times each word appears. Your code should look like:</p>
+<pre>def count_words(string)
+    # your code here
+end</pre>
+<p>Your solution shouldn't use for-loops, but iterators like&nbsp;<code>each</code>&nbsp;are permitted. As before, nonwords and case should be ignored. A word is defined as a string of characters between word boundaries. (Hint: the sequence "\b" in a Ruby regexp means "word boundary".)</p>
+<p>Example test cases:</p>
+<pre>count_words("A man, a plan, a canal -- Panama")
+    # =&gt; {'a' =&gt; 3, 'man' =&gt; 1, 'canal' =&gt; 1, 'panama' =&gt; 1, 'plan' =&gt; 1}
+count_words "Doo bee doo bee doo"
+    # =&gt; {'doo' =&gt; 3, 'bee' =&gt; 2}</pre>
+<p></p>
+<h1><em>Part 3 - Rock Paper Scissors</em></h1>
+<p><b><i></i></b>In a game of rock-paper-scissors (RPS), each player chooses to play Rock (R), Paper (P), or Scissors (S). The rules are: R beats S; S beats P; and P beats R. We will encode a rock-paper-scissors game as a list, where the elements are themselves 2-element lists that encode a player's name and a player's selected move, as shown below:</p>
+<pre>[ ["Armando", "P"], ["Dave", "S"] ] # Dave would win since S &gt; P</pre>
+<p><b><i>a)&nbsp;</i></b>: Write a method&nbsp;<code>rps_game_winner</code>&nbsp;that takes a two-element list and behaves as follows:</p>
+<ul>
+<li>If the number of players is not equal to 2, raise&nbsp;<code>WrongNumberOfPlayersError</code>.</li>
+<li>If either player's strategy is something other than "R", "P" or "S" (case-insensitive), raise<code>NoSuchStrategyError</code>.</li>
+<li>Otherwise, return the name and move of the winning player. If both players play the same move, the first player is the winner.</li>
+</ul>
+<p>We'll get you started:</p>
+<pre>class WrongNumberOfPlayersError &lt;  StandardError ; end
+class NoSuchStrategyError &lt;  StandardError ; end
+
+def rps_game_winner(game)
+    raise WrongNumberOfPlayersError unless game.length == 2
+    # your code here
+end</pre>
+<p></p>
+<p><b><i>b)&nbsp;</i></b>We will define a rock-paper-scissors tournament to be an array of games in which each player always plays the same move. A rock-paper-scissors&nbsp;<i>tournament</i>&nbsp;is encoded as a bracketed array of games:</p>
+<pre>[
+    [
+        [ ["Armando", "P"], ["Dave", "S"] ],
+        [ ["Richard", "R"],  ["Michael", "S"] ],
+    ],
+    [
+        [ ["Allen", "S"], ["Omer", "P"] ],
+        [ ["David E.", "R"], ["Richard X.", "P"] ]
+    ]
+]</pre>
+<p>In the tournament above Armando will always play P and Dave will always play S. This tournament plays out as follows:</p>
+<ul>
+<li>Dave would beat Armando (S&gt;P),</li>
+<li>Richard would beat Michael (R&gt;S), and then</li>
+<li>Dave and Richard would play (Richard wins since R&gt;S).</li>
+</ul>
+<p>Similarly,</p>
+<ul>
+<li>Allen would beat Omer,</li>
+<li>Richard X would beat David E., and</li>
+<li>Allen and Richard X. would play (Allen wins since S&gt;P).</li>
+</ul>
+<p>Finally,</p>
+<ul>
+<li>Richard would beat Allen since R&gt;S.</li>
+</ul>
+<p>Note that the tournament continues until there is only a single winner.</p>
+<p>Tournaments can be nested arbitrarily deep, i.e., it may require multiple rounds to get to a single winner. You can assume that the initial tournament is well-formed (that is, there are 2^n players, and each one participates in exactly one match per round).</p>
+<p>Write a method&nbsp;<code>rps_tournament_winner</code>&nbsp;that takes a tournament encoded as a bracketed array and returns the winner (for the above example, it should return&nbsp;<code>["Richard", "R"]</code>).</p>
+<p></p>
+<h1><em>Part 4 - Anagrams</em></h1>
+<p>An anagram is a word obtained by rearranging the letters of another word. For example, "rats", "tars", and "star" are anagrams of one another, as are "dictionary" and "indicatory". We will call any array of single-word anagrams an anagram group. For instance,&nbsp;<code>["rats", "tars", "star"]</code>&nbsp;is an anagram group, as is<code>["dictionary"]</code>.</p>
+<p>Write a method&nbsp;<code>combine_anagrams(words)</code>&nbsp;that, given an array of strings&nbsp;<code>words</code>, groups the input words into anagram groups. Case doesn't matter in classifying strings as anagrams (but case should be preserved in the output), and the order of the anagrams in the groups doesn't matter. The output should be an array of anagram groups (i.e. an array of arrays).</p>
+<p>Code skeleton:</p>
+<pre>def combine_anagrams(words)
+    # your code here
+end</pre>
+<p>Example test case:</p>
+<pre># input: ['cars', 'for', 'potatoes', 'racs', 'four', 'scar', 'creams', 'scream'] 
+# output: [ ["cars", "racs", "scar"],
+#           ["four"],
+#           ["for"],
+#           ["potatoes"],
+#           ["creams", "scream"] ]</pre>
+<p>Hint: You can quickly tell if two words are anagrams by sorting their letters, keeping in mind that upper vs. lowercase doesn't matter.</p></div>
+  </head>
+  <body></body>
+</html>
